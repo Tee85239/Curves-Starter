@@ -10,6 +10,8 @@ public class ThrownAxe : MonoBehaviour
 {
     public Rigidbody rigidbody;
     public Collider axeCollider;
+    public AudioClip hit;
+    public AudioSource audioSource;
 
     bool _stuck;
     Transform _hand;
@@ -71,5 +73,7 @@ public class ThrownAxe : MonoBehaviour
        
         rigidbody.isKinematic = true;
         // TODO Slice 8.3 (contact hook): stop visual spin while stuck.
+        audioSource.PlayOneShot(hit);
     }
+    
 }

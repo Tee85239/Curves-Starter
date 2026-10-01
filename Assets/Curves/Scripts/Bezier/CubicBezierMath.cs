@@ -32,6 +32,6 @@ public static class CubicBezierMath
         Vector3 C = Vector3.Lerp(p2, p3, t);
         Vector3 AB = Vector3.Lerp(A, B, t);
         Vector3 BC = Vector3.Lerp(B, C, t);
-        return 3f * (AB - BC);
+        return -3f * (AB - BC);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 /*
  * PlayerController reads movement and axe input and tracks the axe through
  * Held, Throwing, Away, and Returning. It owns the aim and return line;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     public float movementSpeed = 4f;
     public float rotationSpeed = 360f;
+    public float focusSpeed = 100f;
 
     [Header("Axe")]
     public float throwImpulse = 25f;
@@ -50,8 +52,16 @@ public class PlayerController : MonoBehaviour
         Vector2 input = ReadMovementInput();
         _smoothedInput = Vector2.MoveTowards(_smoothedInput, input, Time.deltaTime * 10f);
 
-        transform.Rotate(Vector3.up, _smoothedInput.x * Time.deltaTime * rotationSpeed);
+        if (Keyboard.current.shiftKey.isPressed)
+        {
+            transform.Rotate(Vector3.up, _smoothedInput.x * Time.deltaTime * focusSpeed);
 
+        }
+        else
+        {
+
+            transform.Rotate(Vector3.up, _smoothedInput.x * Time.deltaTime * rotationSpeed);
+        }
         Vector3 direction = characterController.transform.forward;
         characterController.Move(direction * _smoothedInput.y * movementSpeed * Time.deltaTime);
         animator.SetFloat(Speed, characterController.velocity.magnitude);
